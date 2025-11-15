@@ -68,7 +68,9 @@ public class UserDao implements InterfaceDao<User>{
     public boolean save(User t) {
         User comparador = findByName(t.getName());
         
-        if(comparador == null){
+        if(comparador != null){
+            return false;
+        }
                                                                                                                 // n   s   m  qf  qc  qe
             String sql = "INSERT INTO USUARIO(nome,senha,email,quest_feitas,quest_certas,quest_erradas)"+" VALUES(?,   ?,  ?, ?,  ?,  ?)";
             Connection conn = null;
@@ -95,14 +97,12 @@ public class UserDao implements InterfaceDao<User>{
                 try {
                     if (preparedStatement != null) preparedStatement.close();
                     if (conn != null) conn.close();
-                    return false;
+                    return true;
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
             }
-            return false;
-        }
-        return true;
+            return true;
     }
     @Override
     public boolean delete(Long id) {
