@@ -6,12 +6,12 @@ import java.util.List;
 
 import br.ufrn.tads.repository.*;
 import br.ufrn.tads.model.*;
-public class UserDao implements InterfaceDao{
+public class UserDao implements InterfaceDao<User>{
     DbConnection dbConnection = new DbConnection();
     
 
     @Override
-    public Object findById(Long id) {
+    public User findById(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -20,7 +20,7 @@ public class UserDao implements InterfaceDao{
     public User findByName(String name) {
         // TODO Auto-generated method stub
         User user = null;
-        String sql = "select * from Usuario where nome = ?";
+        String sql = "select * from Usuario where LOWER(nome)=?";
         Connection conn = null;
         
         PreparedStatement preparedStatement = null;
@@ -29,9 +29,9 @@ public class UserDao implements InterfaceDao{
         try {
             conn = DbConnection.getConnection();
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, name.toString());
+            preparedStatement.setString(1, name.toString().toLowerCase());
             //verificando Entrada no banco
-            //System.out.println("conecção: "+preparedStatement);
+            System.out.println("conecção: "+preparedStatement);
             resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()){
@@ -43,7 +43,7 @@ public class UserDao implements InterfaceDao{
                 user.setQuest_certas(resultSet.getInt("quest_certas"));
                 user.setQuest_erradas(resultSet.getInt("quest_erradas"));
                 user.setQuest_feitas(resultSet.getInt("quest_feitas"));
-                System.out.println("output de valor:"+user);
+                System.out.println("output de valor:"+user.getName());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,24 +59,60 @@ public class UserDao implements InterfaceDao{
     }
 
     @Override
-    public List findAll() {
+    public List<User> findAll() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public boolean save(Object t) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    @Override
-    public boolean update(Object t, String[] params) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean save(User t) {
+        User comparador = findByName(t.getName());
+        
+        if(comparador == null){
+                                                                                                                // n   s   m  qf  qc  qe
+            String sql = "INSERT INTO USUARIO(nome,senha,email,quest_feitas,quest_certas,quest_erradas)"+" VALUES(?,   ?,  ?, ?,  ?,  ?)";
+            Connection conn = null;
+            
+            PreparedStatement preparedStatement = null;
+
+            try {
+                conn = DbConnection.getConnection();
+                preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, t.getName());
+                preparedStatement.setString(2,t.getSenha());
+                preparedStatement.setString(3, t.getEmail());
+                preparedStatement.setInt(4, 0);
+                preparedStatement.setInt(5, 0);
+                preparedStatement.setInt(6, 0);
+
+                //System.out.println("state "+preparedStatement);
+                //System.out.println("Usuario Criado Com Sucesso");
+                preparedStatement.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            //fechar coneccoes 
+            } finally {
+                try {
+                    if (preparedStatement != null) preparedStatement.close();
+                    if (conn != null) conn.close();
+                    return false;
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+        }
+        return true;
     }
     @Override
     public boolean delete(Long id) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public boolean update(User t, String[] params) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }

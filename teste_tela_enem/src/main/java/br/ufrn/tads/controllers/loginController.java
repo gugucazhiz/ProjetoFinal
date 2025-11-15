@@ -49,8 +49,8 @@ public class loginController {
     }
 
     @FXML
-    void inscrever(MouseEvent event) {
-
+    void inscrever(MouseEvent event) throws IOException{
+        App.setRoot("registro");
     }
 
     @FXML

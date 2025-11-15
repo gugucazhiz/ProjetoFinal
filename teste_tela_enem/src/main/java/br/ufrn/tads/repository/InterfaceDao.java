@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface InterfaceDao<T>{
     
-    Object findByName(String name);
-    Object findById(Long id);
+    T findByName(String name);
+    T findById(Long id);
     List<T> findAll();
     boolean save(T t);
     boolean update(T t, String[] params);

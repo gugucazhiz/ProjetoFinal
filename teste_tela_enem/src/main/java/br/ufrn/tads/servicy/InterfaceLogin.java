@@ -1,8 +1,10 @@
 package br.ufrn.tads.servicy;
 
+import br.ufrn.tads.model.User;
+
 public interface InterfaceLogin {
     
-    public boolean loginRequest(String login,String senha);
+    boolean loginRequest(String login,String senha);
     
-    public void registerRequest();
+    void registerRequest(User user);
 }

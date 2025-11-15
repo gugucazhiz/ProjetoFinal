@@ -13,6 +13,22 @@ public class User {
         
     }
 
+    public User(String name,
+                String senha,
+                String email,
+	            int quest_feitas,
+                int quest_certas,
+	            int quest_erradas){
+    if(name.length() <= 4 || senha.length() <= 4){
+        throw new IndexOutOfBoundsException("Tamanho Invalido");
+    }
+    this.name = name;
+    this.senha = senha;
+    this.email =email;
+    this.quest_certas = quest_certas;
+    this.quest_erradas = quest_erradas;
+    this.quest_feitas =quest_feitas;
+    }
     public User(Long id,
                 String name,
                 String senha,
@@ -20,7 +36,9 @@ public class User {
 	            int quest_feitas,
                 int quest_certas,
 	            int quest_erradas){
-
+    if(name.length() <= 4 || senha.length() <= 4){
+        throw new IndexOutOfBoundsException("Tamanho Invalido");
+    }
     this.id = id;
     this.name = name;
     this.senha = senha;

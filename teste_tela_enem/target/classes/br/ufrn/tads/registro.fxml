@@ -18,8 +18,8 @@
              <Region />
            </root>
          </SubScene>
-         <PasswordField fx:id="pass_campus" layoutX="275.0" layoutY="251.0" onAction="#password_register" prefHeight="25.0" prefWidth="192.0" promptText="password" />
-         <TextField fx:id="login_campus" layoutX="275.0" layoutY="148.0" onAction="#login_register" prefHeight="25.0" prefWidth="192.0" promptText="login" style="-fx-border-width: 100;" />
+         <PasswordField fx:id="pass_campus" layoutX="275.0" layoutY="251.0" prefHeight="25.0" prefWidth="192.0" promptText="password" />
+         <TextField fx:id="login_campus" layoutX="275.0" layoutY="148.0" prefHeight="25.0" prefWidth="192.0" promptText="login" style="-fx-border-width: 100;" />
          <Text layoutX="301.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro" wrappingWidth="141.423828125">
             <font>
                <Font name="Arial Bold" size="30.0" />
@@ -57,11 +57,35 @@
             </cursor>
          </Text>
          <Button fx:id="registro_btn" layoutX="275.0" layoutY="308.0" mnemonicParsing="false" onAction="#registrar" prefHeight="17.0" prefWidth="192.0" styleClass="meu-botao-login" stylesheets="@style.css" text="Registrar" />
-         <TextField fx:id="email_campus" layoutX="276.0" layoutY="203.0" onAction="#email_register" prefHeight="25.0" prefWidth="192.0" promptText="email" style="-fx-border-width: 100;" />
+         <TextField fx:id="email_campus" layoutX="276.0" layoutY="203.0" prefHeight="25.0" prefWidth="192.0" promptText="email" style="-fx-border-width: 100;" />
          <Text layoutX="276.0" layoutY="199.0" opacity="0.86" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="75.423828125">
             <font>
                <Font name="Arial" size="12.0" />
             </font>
+         </Text>
+         <Text fx:id="preenchaTodos" fill="RED" layoutX="275.0" layoutY="297.0" opacity="0.86" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Error-invisible" text="Preencha todos os campos" wrappingWidth="224.0">
+            <font>
+               <Font name="Arial" size="12.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </Text>
+         <Text fx:id="tamanhoMin" fill="RED" layoutX="275.0" layoutY="297.0" opacity="0.86" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Error-invisible" text="Usuario e Senha devem ter mais de 4 caracteres" wrappingWidth="278.0">
+            <font>
+               <Font name="Arial" size="12.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </Text>
+         <Text fx:id="jaExiste" fill="RED" layoutX="275.0" layoutY="297.0" opacity="0.86" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Error-invisible" text="Este usuario já existe" wrappingWidth="278.0">
+            <font>
+               <Font name="Arial" size="12.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
          </Text>
       </children></AnchorPane>
 </AnchorPane>

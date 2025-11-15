@@ -27,7 +27,7 @@ public class Login implements InterfaceLogin{
 
         user = userDao.findByName(login);
         try {
-            if(user.getName().equals(this.login) && user.getSenha().equals(this.senha)){
+            if(user.getName().toLowerCase().equals(this.login.toLowerCase()) && user.getSenha().equals(this.senha)){
             System.out.println("Logado");
             return true;
         }
@@ -40,7 +40,14 @@ public class Login implements InterfaceLogin{
     }
 
     @Override
-    public void registerRequest(){
-
+    public void registerRequest(User user){
+        if(userDao.save(user)){
+            System.out.println("Usuario Ja existe");
+            throw new IllegalArgumentException();
+        }
+        else{
+            System.out.println("Usuario Criado Com Exito");
+        }
+        
     }
 }
