@@ -112,7 +112,7 @@
                               <Image url="@../../../imgs/user_icon_149851.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btn_menu" layoutX="6.0" layoutY="128.0" mnemonicParsing="false" onAction="#menu_screen" prefHeight="30.0" prefWidth="95.0" styleClass="meu-botao" stylesheets="@style.css" text="Menu">
+                        <Button fx:id="btn_menu" layoutX="6.0" layoutY="128.0" mnemonicParsing="false" onAction="#menu_screen" prefHeight="30.0" prefWidth="95.0" styleClass="meu-botao-ativado" stylesheets="@style.css" text="Menu">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

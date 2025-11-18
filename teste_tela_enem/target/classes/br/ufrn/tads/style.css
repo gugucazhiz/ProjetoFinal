@@ -17,6 +17,15 @@
     -fx-background-color: #2b89ff;
 }
 
+.meu-botao-ativado {
+    -fx-background-color: #2b89ff;
+    -fx-text-fill: black;
+    -fx-background-radius: 6;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+
 .meu-botao:pressed {
     -fx-effect: innershadow(gaussian, rgba(255,255,255,0.6), 10, 0.3, 0, 0);
 }
