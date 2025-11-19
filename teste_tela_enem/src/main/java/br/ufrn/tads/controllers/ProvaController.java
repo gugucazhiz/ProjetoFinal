@@ -1,16 +1,15 @@
 package br.ufrn.tads.controllers;
 
+import java.io.IOException;
+
+import br.ufrn.tads.App;
+import br.ufrn.tads.servicy.imp.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
-
-import br.ufrn.tads.App;
-import br.ufrn.tads.servicy.imp.*;
-public class TelaMenu {
-
+public class ProvaController{
 
     @FXML
     private Text nomeUser;
@@ -46,17 +45,14 @@ public class TelaMenu {
     }
 
     @FXML
-    void menu_screen(ActionEvent event) {
-
+    void menu_screen(ActionEvent event) throws IOException {
+        App.setRoot("menuScreen");
     }
 
-    @FXML
-    void prova_screen(ActionEvent event) throws IOException{
-        App.setRoot("provaScreen");
-    }
 
     @FXML
     void questoes_screen(ActionEvent event) {
 
     }
+
 }

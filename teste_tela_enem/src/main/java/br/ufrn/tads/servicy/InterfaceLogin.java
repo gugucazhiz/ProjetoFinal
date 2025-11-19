@@ -7,4 +7,5 @@ public interface InterfaceLogin {
     boolean loginRequest(String login,String senha);
     
     void registerRequest(User user);
+
 }

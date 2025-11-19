@@ -8,6 +8,7 @@ import br.ufrn.tads.model.*;
 public class Login implements InterfaceLogin{
     private String login;
     private String senha;
+    private static User userAtual;
     private UserDao userDao;
     private User user = null;
     public Login(){
@@ -29,6 +30,7 @@ public class Login implements InterfaceLogin{
         try {
             if(user.getName().toLowerCase().equals(this.login.toLowerCase()) && user.getSenha().equals(this.senha)){
             System.out.println("Logado");
+            userAtual = user;
             return true;
         }
         } catch (Exception e) {
@@ -50,5 +52,11 @@ public class Login implements InterfaceLogin{
             throw new IllegalArgumentException();
         }
         
+    }
+    public static User getUserAtual() {
+        return userAtual;
+    }
+    public static void setUserAtual(User userAtual) {
+        Login.userAtual = userAtual;
     }
 }
