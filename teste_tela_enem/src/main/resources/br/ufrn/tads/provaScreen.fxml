@@ -116,7 +116,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btn_provas" layoutX="6.0" layoutY="171.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="95.0" styleClass="meu-botao" stylesheets="@style.css" text="Provas">
+                        <Button fx:id="btn_provas" layoutX="6.0" layoutY="171.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="95.0" styleClass="meu-botao-ativado" stylesheets="@style.css" text="Provas">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
