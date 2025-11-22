@@ -56,7 +56,7 @@ public class TelaMenu {
     }
 
     @FXML
-    void questoes_screen(ActionEvent event) {
-
+    void questoes_screen(ActionEvent event) throws IOException{
+        App.setRoot("questoesScreen");
     }
 }
