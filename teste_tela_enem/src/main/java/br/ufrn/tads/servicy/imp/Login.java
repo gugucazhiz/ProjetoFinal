@@ -11,6 +11,8 @@ public class Login implements InterfaceLogin{
     private static User userAtual;
     private UserDao userDao;
     private User user = null;
+    private QuestionsDao questionsDao = new QuestionsDao();
+    private Question question = null;
     public Login(){
         userDao = new UserDao();
     }
@@ -25,7 +27,7 @@ public class Login implements InterfaceLogin{
         }
         this.login = login;
         this.senha = senha;
-
+        question = questionsDao.findById((long)2);
         user = userDao.findByName(login);
         try {
             if(user.getName().toLowerCase().equals(this.login.toLowerCase()) && user.getSenha().equals(this.senha)){
