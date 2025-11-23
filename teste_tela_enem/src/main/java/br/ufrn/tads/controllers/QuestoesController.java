@@ -1,9 +1,12 @@
 package br.ufrn.tads.controllers;
 
+import br.ufrn.tads.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import br.ufrn.tads.controllers.TelaMenuController;
+import java.io.IOException;
 
 public class QuestoesController {
 
@@ -63,8 +66,8 @@ public class QuestoesController {
     }
 
     @FXML
-    void menu_screen(ActionEvent event) {
-
+    void menu_screen(ActionEvent event) throws IOException {
+        App.setRoot("menuScreen");
     }
 
     @FXML
@@ -73,8 +76,8 @@ public class QuestoesController {
     }
 
     @FXML
-    void prova_screen(ActionEvent event) {
-
+    void prova_screen(ActionEvent event) throws IOException{
+        App.setRoot("provaScreen");
     }
 
     @FXML
