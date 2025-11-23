@@ -19,6 +19,8 @@ public class ResponderController {
     private List<Question> questoes = new ArrayList<>();
     private QuestoesServicy qs = new QuestoesServicy();
     private int indexAtual = 0;
+    private static boolean provaGeral = true;
+    private static String temaAtual;
 
     @FXML
     private CheckBox alternativaA;
@@ -45,19 +47,39 @@ public class ResponderController {
 
     @FXML 
     public void initialize() {
-        try {
-            questoes = qs.catchQuestoes();
-            System.out.println(questoes);
-            if (questoes == null || questoes.isEmpty()) {
-                System.out.println("Nenhuma questão encontrada!");
-                contexto.setText("Nenhuma questão disponível.");
-                return;
+        if(provaGeral)
+            try {
+
+                questoes = qs.catchQuestoes();
+                System.out.println(questoes);
+                if (questoes == null || questoes.isEmpty()) {
+                    System.out.println("Nenhuma questão encontrada!");
+                    contexto.setText("Nenhuma questão disponível.");
+                    return;
+                }
+                
+                mostrarQuestao(0);
+            } catch (Exception e) {
+                System.err.println("Erro ao inicializar: " + e.getMessage());
+                e.printStackTrace();
             }
-            
-            mostrarQuestao(0);
-        } catch (Exception e) {
-            System.err.println("Erro ao inicializar: " + e.getMessage());
-            e.printStackTrace();
+
+        else{
+            try {
+
+                questoes = qs.catchQuestoesPortema(getTemaAtual());
+                System.out.println(questoes);
+                if (questoes == null || questoes.isEmpty()) {
+                    System.out.println("Nenhuma questão encontrada!");
+                    contexto.setText("Nenhuma questão disponível.");
+                    return;
+                }
+                
+                mostrarQuestao(0);
+            } catch (Exception e) {
+                System.err.println("Erro ao inicializar: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -112,5 +134,21 @@ public class ResponderController {
     @FXML
     void menu_screen(ActionEvent event) throws IOException {
         App.setRoot("menuScreen");
+    }
+
+    public static boolean isProvaGeral() {
+        return provaGeral;
+    }
+
+    public static void setProvaGeral(boolean provaGeral) {
+        ResponderController.provaGeral = provaGeral;
+    }
+
+    public static String getTemaAtual() {
+        return temaAtual;
+    }
+
+    public static void setTemaAtual(String temaAtual) {
+        ResponderController.temaAtual = temaAtual;
     }
 }

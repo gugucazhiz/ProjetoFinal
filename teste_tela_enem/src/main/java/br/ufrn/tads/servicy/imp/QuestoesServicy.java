@@ -29,5 +29,56 @@ public class QuestoesServicy {
         }
         return null;
     }
+
+    public List<Question> catchQuestoesPortema(String temaAtual){
+        try {
+            if(temaAtual.equals("linguagens")){
+                for(int i =1; i<46;i++){
+                                question = questionsDao.findByTema(temaAtual,(long)i);
+                                System.out.println(question);
+                                if(question!= null){
+                                    questoes.add(question);  
+                                }
+                                
+                            }
+            }
+            else if(temaAtual.equals("ciencias-humanas")){
+                for(int i =45; i<91;i++){
+                                question = questionsDao.findByTema(temaAtual,(long)i);
+                                System.out.println(question);
+                                if(question!= null){
+                                    questoes.add(question);  
+                                }
+                                
+                            }
+            }
+            else if(temaAtual.equals("ciencias-natureza")){
+                for(int i =90; i<136;i++){
+                                question = questionsDao.findByTema(temaAtual,(long)i);
+                                System.out.println(question);
+                                if(question!= null){
+                                    questoes.add(question);  
+                                }
+                                
+                            }
+            }
+            else if(temaAtual.equals("matematica")){
+                for(int i =135; i<181;i++){
+                                question = questionsDao.findByTema(temaAtual,(long)i);
+                                System.out.println(question);
+                                if(question!= null){
+                                    questoes.add(question);  
+                                }
+                                
+                            }
+            }               
+            return questoes;
+
+        } catch (NullPointerException e) {
+            System.out.println(e);
+            // TODO: handle exception
+        }
+        return null;
+    }
     
 }

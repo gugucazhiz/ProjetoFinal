@@ -5,11 +5,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import br.ufrn.tads.controllers.TelaMenuController;
+import br.ufrn.tads.servicy.imp.Login;
+
 import java.io.IOException;
 
 public class QuestoesController {
 
+    @FXML
+    public void initialize() {
+        nomeUser.setText(Login.getUserAtual().getName());
+    }
+    
     @FXML
     private Button btn_ajuda;
 
@@ -51,18 +57,24 @@ public class QuestoesController {
     }
 
     @FXML
-    void cht_function(ActionEvent event) {
-
+    void cht_function(ActionEvent event)throws IOException {
+        ResponderController.setProvaGeral(false);
+        ResponderController.setTemaAtual("ciencias-humanas");
+        App.setRoot("responderScreen");
     }
 
     @FXML
-    void cnt_function(ActionEvent event) {
-
+    void cnt_function(ActionEvent event)throws IOException {
+        ResponderController.setProvaGeral(false);
+        ResponderController.setTemaAtual("ciencias-natureza");
+        App.setRoot("responderScreen");
     }
 
     @FXML
-    void lct_function(ActionEvent event) {
-
+    void lct_function(ActionEvent event)throws IOException {
+        ResponderController.setProvaGeral(false);
+        ResponderController.setTemaAtual("linguagens");
+        App.setRoot("responderScreen");
     }
 
     @FXML
@@ -71,8 +83,10 @@ public class QuestoesController {
     }
 
     @FXML
-    void mt_function(ActionEvent event) {
-
+    void mt_function(ActionEvent event)throws IOException {
+        ResponderController.setProvaGeral(false);
+        ResponderController.setTemaAtual("matematica");
+        App.setRoot("responderScreen");
     }
 
     @FXML
