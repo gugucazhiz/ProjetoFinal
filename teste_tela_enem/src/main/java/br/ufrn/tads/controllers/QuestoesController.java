@@ -56,8 +56,8 @@ public class QuestoesController {
     }
 
     @FXML
-    void calendario__screen(ActionEvent event) {
-
+    void calendario__screen(ActionEvent event) throws IOException {
+        App.setRoot("calendarioScreen");
     }
 
     @FXML
