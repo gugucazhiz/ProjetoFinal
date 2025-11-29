@@ -42,7 +42,11 @@ public class Importer {
                 psQ.setInt(5, q.getYear());
                 psQ.setString(6, q.getContext());
                 psQ.setString(7, q.getCorrectAlternative());
-                psQ.setString(8, String.join(",", q.getFiles()));
+                if (q.getFiles() != null && !q.getFiles().isEmpty()) {
+                    psQ.setArray(8, conn.createArrayOf("text", q.getFiles().toArray(new String[0])));
+                } else {
+                    psQ.setArray(8, conn.createArrayOf("text", new String[]{})); // array vazio
+                }
 
 
                 ResultSet rs = psQ.executeQuery();

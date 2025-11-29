@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.ufrn.tads.App;
+import br.ufrn.tads.servicy.imp.Login;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -59,6 +60,9 @@ public class CalendarioController {
         dpDataAlvo.valueProperty().addListener((obs, oldVal, newVal) -> {
             atualizarPainel();
         });
+
+        
+        nomeUser.setText(Login.getUserAtual().getName());
     }
 
     @FXML
@@ -82,9 +86,10 @@ public class CalendarioController {
     }
 
     @FXML
-    void ajuda_screen(ActionEvent event) throws IOException {
-        // App.setRoot("ajudaScreen");
+    void ajuda_screen(ActionEvent event) throws IOException{
+        App.setRoot("ajuda_configScreen");
     }
+
 
     private void iniciarContagemTempoReal() {
         relogio = new Timeline(new KeyFrame(Duration.seconds(1), event -> {

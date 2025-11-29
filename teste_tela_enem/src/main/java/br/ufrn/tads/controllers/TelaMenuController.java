@@ -21,11 +21,14 @@ public class TelaMenuController {
     QuestoesServicy qServicy = new QuestoesServicy();
     @FXML
     private Text nomeUser;
-
+    User user1;
+    User user;
     @FXML
     public void initialize() {
+        user1 = Login.getUserAtual();
+        user  = qServicy.getAcertosUser(user1.getName());
         nomeUser.setText(Login.getUserAtual().getName());
-        carregarGrafico(Login.getUserAtual());
+        carregarGrafico(user);
     }
 
     @FXML
@@ -54,8 +57,8 @@ public class TelaMenuController {
     private Button btn_questoes;
 
     @FXML
-    void ajuda_screen(ActionEvent event) {
-
+    void ajuda_screen(ActionEvent event) throws IOException{
+        App.setRoot("ajuda_configScreen");
     }
 
     @FXML

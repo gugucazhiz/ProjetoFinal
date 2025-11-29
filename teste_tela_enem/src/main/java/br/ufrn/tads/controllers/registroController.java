@@ -67,6 +67,14 @@ public class registroController {
                         email_campus.getText(),
                         0,
                         0,
+                        0,
+                        0,
+                        0,
+                    0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0);
 
                     //Mandando infos para classe concreta login do packge servico

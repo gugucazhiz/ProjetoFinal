@@ -43,7 +43,15 @@ public class UserDao implements InterfaceDao<User>{
                 user.setEmail(resultSet.getString("email"));
                 user.setQuest_certas(resultSet.getInt("quest_certas"));
                 user.setQuest_erradas(resultSet.getInt("quest_erradas"));
-                user.setQuest_feitas(resultSet.getInt("quest_feitas"));
+                user.setAcertos_humanas(resultSet.getInt("acertos_humanas"));
+                user.setErros_humanas(resultSet.getInt("erros_humanas"));
+                user.setAcertos_linguagem(resultSet.getInt("acertos_linguagem"));
+                user.setErros_linguagem(resultSet.getInt("erros_linguagem"));
+                user.setAcertos_mat(resultSet.getInt("acertos_mat"));
+                user.setErros_mat(resultSet.getInt("erros_mat"));
+                user.setAcertos_nat(resultSet.getInt("acertos_nat"));
+                user.setErros_nat(resultSet.getInt("erros_nat"));
+
                 System.out.println("output de valor:"+user.getName());
             }
         } catch (Exception e) {
@@ -107,14 +115,42 @@ public class UserDao implements InterfaceDao<User>{
     }
     @Override
     public boolean delete(Long id) {
-        // TODO Auto-generated method stub
-        return false;
+        String sql = "update usuario set quest_feitas = 0 ,quest_certas = 0 ,quest_erradas =0,acertos_humanas = 0,erros_humanas = 0,acertos_linguagem = 0 ,erros_linguagem= 0 , acertos_mat= 0 , erros_mat= 0, acertos_nat = 0 , erros_nat = 0  where id_user = ? ;";
+        System.out.println("-- APAGOU HISTORICO PASSADO --");
+        try (Connection conn = DbConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
+
+    public boolean deleteDaily(Long id) {
+        String sql = "DELETE FROM user_stats_daily WHERE id_user = ? AND data = CURRENT_DATE";
+        System.out.println("-- APAGOU HISTORICO DIARIO --");
+        try (Connection conn = DbConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     public boolean update(User t, String[] params) {
         // TODO Auto-generated method stub
-        String sql = "update usuario set quest_feitas = quest_feitas+ ? ,quest_certas = quest_certas+ ? ,quest_erradas = quest_erradas+ ? where id_user = ? ;";
+        String sql = "update usuario set quest_feitas = quest_feitas+ ? ,quest_certas = quest_certas+ ? ,quest_erradas = quest_erradas+ ?,acertos_humanas = acertos_humanas+?,erros_humanas = erros_humanas+?,acertos_linguagem = acertos_linguagem+?,erros_linguagem=erros_linguagem+?, acertos_mat=acertos_mat+?, erros_mat= erros_mat+?, acertos_nat = acertos_nat+? , erros_nat = erros_nat +?  where id_user = ? ;";
         Connection conn = null;
         
         PreparedStatement preparedStatement = null;
@@ -126,7 +162,15 @@ public class UserDao implements InterfaceDao<User>{
             preparedStatement.setInt(1, t.getQuest_feitas());
             preparedStatement.setInt(2, t.getQuest_certas());
             preparedStatement.setInt(3, t.getQuest_erradas());
-            preparedStatement.setLong(4, t.getId());
+            preparedStatement.setInt(4, t.getAcertos_humanas());
+            preparedStatement.setInt(5, t.getErros_humanas());
+            preparedStatement.setInt(6, t.getAcertos_linguagem());
+            preparedStatement.setInt(7, t.getErros_linguagem());
+            preparedStatement.setInt(8, t.getAcertos_mat());
+            preparedStatement.setInt(9, t.getErros_mat());
+            preparedStatement.setInt(10, t.getAcertos_nat());
+            preparedStatement.setInt(11, t.getErros_nat());
+            preparedStatement.setLong(12, t.getId());
             
             preparedStatement.execute(); //it is not a query. It is an insert command
             
@@ -144,6 +188,8 @@ public class UserDao implements InterfaceDao<User>{
         }
         return false;
     }
+
+    
 
     public void salvarEstatisticaDiaria(User t) {
     String sql = "INSERT INTO user_stats_daily (id_user, data, quest_feitas, quest_certas, quest_erradas) VALUES (?, CURRENT_DATE, ?, ?, ?) ON CONFLICT (id_user, data) DO UPDATE SET quest_feitas = user_stats_daily.quest_feitas + EXCLUDED.quest_feitas, quest_certas = user_stats_daily.quest_certas + EXCLUDED.quest_certas,quest_erradas = user_stats_daily.quest_erradas + EXCLUDED.quest_erradas;";

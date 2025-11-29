@@ -35,9 +35,10 @@ public class ProvaController{
     private Button btn_questoes;
 
     @FXML
-    void ajuda_screen(ActionEvent event) {
-
+    void ajuda_screen(ActionEvent event) throws IOException{
+        App.setRoot("ajuda_configScreen");
     }
+
 
     @FXML
     void calendario__screen(ActionEvent event) throws IOException {
