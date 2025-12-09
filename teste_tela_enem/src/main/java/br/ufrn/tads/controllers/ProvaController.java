@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 import br.ufrn.tads.App;
 // import br.ufrn.tads.model.Login;
+import br.ufrn.tads.servicy.imp.Login;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -172,7 +173,7 @@ public class ProvaController {
 
     @FXML
     public void initialize() {
-
+        nomeUser.setText(Login.getUserAtual().getName());
     }
 
     // navegação entre telas
