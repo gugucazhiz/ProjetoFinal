@@ -3,6 +3,7 @@ module br.ufrn.tads {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+    requires java.desktop; // Para Desktop.getDesktop()
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
 
