@@ -1,0 +1,285 @@
+@startuml
+title Diagrama de Classes - Projeto ENEM
+
+' ============================================
+' CAMADA MODEL
+' ============================================
+package "br.ufrn.tads.model" {
+    class User {
+        -Long id
+        -String name
+        -String senha
+        -String email
+        -int quest_feitas
+        -int quest_certas
+        -int quest_erradas
+        -int acertos_humanas
+        -int erros_humanas
+        -int acertos_linguagem
+        -int erros_linguagem
+        -int acertos_mat
+        -int erros_mat
+        -int acertos_nat
+        -int erros_nat
+        +User()
+        +User(String, String, String, ...)
+        +User(Long, String, ...)
+        +getId() : Long
+        +setId(Long) : void
+        +getName() : String
+        +setName(String) : void
+        +hashCode() : int
+        +equals(Object) : boolean
+    }
+
+    class Question {
+        -String title
+        -int index
+        -String discipline
+        -String language
+        -int year
+        -String context
+        -List<String> files
+        -String correctAlternative
+        -List<Alternative> alternatives
+        -List<String> alternativesDoBd
+        -List<String> topicos
+        -String alternativesIntroduction
+        -boolean acertouOuNao
+        +int similarity_score
+        +int matched_question_number
+        +boolean is_manual_addition
+        +Question()
+        +getTitle() : String
+        +setTitle(String) : void
+        +getIndex() : int
+        +setIndex(int) : void
+    }
+
+    class Alternative {
+        +String letter
+        +String text
+        +String file
+        +boolean isCorrect
+    }
+
+    class Root {
+        +List<Question> questions
+    }
+
+    class UserDailyStats {
+        -LocalDate data
+        -int quest_certas
+        -int quest_erradas
+        +UserDailyStats(LocalDate, int, int)
+        +getData() : LocalDate
+        +getQuest_certas() : int
+        +getQuest_erradas() : int
+    }
+
+    Question "1" *-- "many" Alternative : contains
+    Root "1" *-- "many" Question : contains
+}
+
+' ============================================
+' CAMADA CONTROLLERS
+' ============================================
+package "br.ufrn.tads.controllers" {
+    class loginController {
+        -InterfaceLogin loginReq
+        -boolean loginStatus
+        +login(ActionEvent) : void
+        +inscrever(MouseEvent) : void
+        +ajuda_screen(MouseEvent) : void
+    }
+
+    class registroController {
+        +register() : void
+    }
+
+    class QuestoesController {
+        +cht_function() : void
+        +cnt_function() : void
+        +lct_function() : void
+        +mt_function() : void
+        +prova_screen() : void
+        +menu_screen() : void
+    }
+
+    class ProvaController {
+        +abrirProva(ActionEvent) : void
+        +obterUrlDoInep(String, String, String) : String
+        +menu_screen() : void
+    }
+
+    class ResponderController {
+        +{static} setProvaGeral(boolean) : void
+        +{static} setTemaAtual(String) : void
+        +{static} setAtivadoTopico(boolean) : void
+    }
+
+    class CalendarioController {
+        +showStatistics() : void
+    }
+
+    class TelaMenuController {
+        +navigate() : void
+    }
+
+    class AjudaController {
+        +showHelp() : void
+    }
+}
+
+' ============================================
+' CAMADA SERVICES
+' ============================================
+package "br.ufrn.tads.servicy" {
+    interface InterfaceLogin {
+        +loginRequest(String, String) : boolean
+        +registerRequest(User) : void
+    }
+
+    class Login {
+        -String login
+        -String senha
+        -{static} User userAtual
+        -UserDao userDao
+        -User user
+        +loginRequest(String, String) : boolean
+        +registerRequest(User) : void
+        +{static} getUserAtual() : User
+        +{static} setUserAtual(User) : void
+    }
+
+    class QuestoesServicy {
+        -List<Question> questoes
+        -User user
+        -UserDao userdao
+        -QuestionsDao questionsDao
+        -Question question
+        -int acertos_humanas
+        -int erros_humanas
+        -int acertos_linguagem
+        -int erros_linguagem
+        -int acertos_mat
+        -int erros_mat
+        -int acertos_nat
+        -int erros_nat
+        -boolean flagDoAcerto
+        +catchQuestoes() : List<Question>
+        +catchQuestoesPortema(String) : List<Question>
+        +contagemDequestoes(List<Question>) : void
+        +verificadorDeAcerto(Question) : void
+        +getAcertosUser(String) : User
+        +getInformacoesDeAcertoseErrosDiarios(User) : List<UserDailyStats>
+        +apagarHistoricoDeQuestoes(Long) : void
+    }
+
+    InterfaceLogin <|.. Login : implements
+}
+
+' ============================================
+' CAMADA REPOSITORY
+' ============================================
+package "br.ufrn.tads.repository" {
+    interface InterfaceDao<T> {
+        +findByName(String) : T
+        +findById(Long) : T
+        +findAll() : List<T>
+        +save(T) : boolean
+        +update(T, String[]) : boolean
+        +delete(Long) : boolean
+    }
+
+    class UserDao {
+        -DbConnection dbConnection
+        +findById(Long) : User
+        +findByName(String) : User
+        +findAll() : List<User>
+        +save(User) : boolean
+        +update(User, String[]) : boolean
+        +delete(Long) : boolean
+        +deleteDaily(Long) : boolean
+        +salvarEstatisticaDiaria(User) : void
+        +getEstatisticaDiaria(Long) : List<UserDailyStats>
+    }
+
+    class QuestionsDao {
+        +findById(Long) : Question
+        +findByTema(String, Long) : Question
+        +findByName(String) : Question
+        +findAll() : List<Question>
+        +save(Question) : boolean
+        +update(Question, String[]) : boolean
+        +delete(Long) : boolean
+    }
+
+    class DbConnection {
+        -{static} String senha
+        -{static} String user
+        -{static} final String URL_DB
+        +DbConnection()
+        +{static} getConnection() : Connection
+    }
+
+    class Importer {
+        +{static} main(String[]) : void
+    }
+
+    InterfaceDao <|.. UserDao : implements
+    InterfaceDao <|.. QuestionsDao : implements
+}
+
+' ============================================
+' CLASSE PRINCIPAL
+' ============================================
+package "br.ufrn.tads" {
+    class App {
+        -{static} Scene scene
+        +start(Stage) : void
+        +{static} setRoot(String) : void
+        -{static} loadFXML(String) : Parent
+        +{static} main(String[]) : void
+    }
+}
+
+' ============================================
+' RELACIONAMENTOS
+' ============================================
+' Controllers usam Services
+loginController --> InterfaceLogin : uses
+registroController --> InterfaceLogin : uses
+QuestoesController --> QuestoesServicy : uses
+ResponderController --> QuestoesServicy : uses
+CalendarioController --> QuestoesServicy : uses
+
+' Services usam DAOs
+Login --> UserDao : uses
+QuestoesServicy --> UserDao : uses
+QuestoesServicy --> QuestionsDao : uses
+
+' DAOs usam DbConnection
+UserDao --> DbConnection : uses
+QuestionsDao --> DbConnection : uses
+Importer --> DbConnection : uses
+
+' DAOs manipulam Models
+UserDao ..> User : manipulates
+QuestionsDao ..> Question : manipulates
+
+' Services manipulam Models
+Login ..> User : manages
+QuestoesServicy ..> Question : manages
+QuestoesServicy ..> UserDailyStats : manages
+
+' Login mantém referência estática a User
+Login ..> User : static reference
+
+' App usa Controllers (via FXML)
+App ..> loginController : loads
+App ..> registroController : loads
+App ..> QuestoesController : loads
+App ..> ProvaController : loads
+
+@enduml

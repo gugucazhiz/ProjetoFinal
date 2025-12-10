@@ -1,0 +1,141 @@
+@startuml
+title Diagrama de Componentes - Projeto ENEM
+
+' ============================================
+' CAMADA FRONTEND
+' ============================================
+package "Frontend" {
+    component [JavaFX UI] as JavaFX
+}
+
+' ============================================
+' CAMADA CONTROLLERS
+' ============================================
+package "Controllers" {
+    component [loginController] as LoginCtrl
+    component [registroController] as RegistroCtrl
+    component [QuestoesController] as QuestoesCtrl
+    component [ProvaController] as ProvaCtrl
+    component [ResponderController] as ResponderCtrl
+    component [CalendarioController] as CalendarioCtrl
+    component [TelaMenuController] as MenuCtrl
+    component [AjudaController] as AjudaCtrl
+}
+
+' ============================================
+' CAMADA SERVICES
+' ============================================
+package "Services" {
+    interface "InterfaceLogin" as ILogin
+    component [Login] as LoginService
+    component [QuestoesServicy] as QuestoesService
+    
+    ILogin <|.. LoginService : implements
+}
+
+' ============================================
+' CAMADA REPOSITORY/DAO
+' ============================================
+package "Repository" {
+    interface "InterfaceDao" as IDao
+    component [UserDao] as UserDao
+    component [QuestionsDao] as QuestionsDao
+    component [DbConnection] as DbConn
+    component [Importer] as Importer
+    
+    IDao <|.. UserDao : implements
+    IDao <|.. QuestionsDao : implements
+}
+
+' ============================================
+' CAMADA MODEL
+' ============================================
+package "Model" {
+    component [User] as UserModel
+    component [Question] as QuestionModel
+    component [Alternative] as AltModel
+    component [Root] as RootModel
+    component [UserDailyStats] as StatsModel
+}
+
+' ============================================
+' CAMADA DATABASE
+' ============================================
+database "PostgreSQL\nEnem_crud" as PostgreSQL
+
+' ============================================
+' DEPENDÊNCIAS FRONTEND -> CONTROLLERS
+' ============================================
+JavaFX --> LoginCtrl : uses
+JavaFX --> RegistroCtrl : uses
+JavaFX --> QuestoesCtrl : uses
+JavaFX --> ProvaCtrl : uses
+JavaFX --> ResponderCtrl : uses
+JavaFX --> CalendarioCtrl : uses
+JavaFX --> MenuCtrl : uses
+JavaFX --> AjudaCtrl : uses
+
+' ============================================
+' DEPENDÊNCIAS CONTROLLERS -> SERVICES
+' ============================================
+LoginCtrl --> ILogin : uses
+RegistroCtrl --> ILogin : uses
+QuestoesCtrl --> QuestoesService : uses
+ResponderCtrl --> QuestoesService : uses
+CalendarioCtrl --> QuestoesService : uses
+
+' ============================================
+' DEPENDÊNCIAS SERVICES -> REPOSITORY
+' ============================================
+LoginService --> IDao : uses
+QuestoesService --> IDao : uses
+
+' ============================================
+' DEPENDÊNCIAS SERVICES -> MODEL
+' ============================================
+LoginService --> UserModel : uses
+QuestoesService --> UserModel : uses
+QuestoesService --> QuestionModel : uses
+QuestoesService --> StatsModel : uses
+
+' ============================================
+' DEPENDÊNCIAS REPOSITORY -> MODEL
+' ============================================
+UserDao --> UserModel : manipulates
+UserDao --> StatsModel : manipulates
+QuestionsDao --> QuestionModel : manipulates
+QuestionsDao --> AltModel : manipulates
+
+' ============================================
+' DEPENDÊNCIAS REPOSITORY -> DATABASE
+' ============================================
+UserDao --> DbConn : uses
+QuestionsDao --> DbConn : uses
+Importer --> DbConn : uses
+DbConn --> PostgreSQL : connects
+UserDao --> PostgreSQL : queries
+QuestionsDao --> PostgreSQL : queries
+Importer --> PostgreSQL : imports
+
+' ============================================
+' NOTAS
+' ============================================
+note right of JavaFX
+  Telas FXML:
+  - login.fxml
+  - registro.fxml
+  - menuScreen.fxml
+  - questoesScreen.fxml
+  - provaScreen.fxml
+  - responderScreen.fxml
+  - calendarioScreen.fxml
+  - ajuda_configScreen.fxml
+end note
+
+note right of PostgreSQL
+  Database: Enem_crud
+  Host: localhost:5432
+  Driver: PostgreSQL JDBC 42.7.7
+end note
+
+@enduml

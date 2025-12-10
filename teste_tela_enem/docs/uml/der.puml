@@ -1,0 +1,121 @@
+@startuml
+title Diagrama de Entidade e Relacionamento (DER) - Projeto ENEM
+
+' ============================================
+' ENTIDADE: USUARIO
+' ============================================
+entity "Usuario" as Usuario {
+    * id_user : BIGINT <<PK>>
+    --
+    * nome : VARCHAR <<UNIQUE>>
+    * senha : VARCHAR
+    * email : VARCHAR
+    quest_feitas : INTEGER
+    quest_certas : INTEGER
+    quest_erradas : INTEGER
+    acertos_humanas : INTEGER
+    erros_humanas : INTEGER
+    acertos_linguagem : INTEGER
+    erros_linguagem : INTEGER
+    acertos_mat : INTEGER
+    erros_mat : INTEGER
+    acertos_nat : INTEGER
+    erros_nat : INTEGER
+}
+
+' ============================================
+' ENTIDADE: QUESTIONS
+' ============================================
+entity "questions" as Questions {
+    * id : BIGINT <<PK>>
+    --
+    * index_number : INTEGER
+    title : TEXT
+    discipline : VARCHAR
+    language : VARCHAR
+    year : INTEGER
+    context : TEXT
+    correct_alternative : VARCHAR
+    files : TEXT[]
+}
+
+' ============================================
+' ENTIDADE: ALTERNATIVES
+' ============================================
+entity "alternatives" as Alternatives {
+    * id : BIGINT <<PK>>
+    --
+    * question_id : BIGINT <<FK>>
+    letter : VARCHAR
+    text : TEXT
+    is_correct : BOOLEAN
+}
+
+' ============================================
+' ENTIDADE: TOPICS
+' ============================================
+entity "topics" as Topics {
+    * id : BIGINT <<PK>>
+    --
+    * question_id : BIGINT <<FK>>
+    topic_text : VARCHAR
+}
+
+' ============================================
+' ENTIDADE: USER_STATS_DAILY
+' ============================================
+entity "user_stats_daily" as UserStatsDaily {
+    * id : BIGINT <<PK>>
+    --
+    * id_user : BIGINT <<FK>>
+    * data : DATE
+    quest_feitas : INTEGER
+    quest_certas : INTEGER
+    quest_erradas : INTEGER
+    --
+    (id_user, data) <<UNIQUE>>
+}
+
+' ============================================
+' RELACIONAMENTOS
+' ============================================
+' Usuario 1:N user_stats_daily
+Usuario ||--o{ UserStatsDaily : "tem estatísticas diárias"
+note right of UserStatsDaily
+  Um usuário pode ter múltiplas
+  estatísticas diárias.
+  Um registro por usuário por dia
+  (constraint UNIQUE)
+end note
+
+' questions 1:N alternatives
+Questions ||--o{ Alternatives : "possui"
+note right of Alternatives
+  Uma questão possui múltiplas
+  alternativas (A, B, C, D, E).
+  Uma alternativa pertence a
+  uma única questão.
+end note
+
+' questions 1:N topics
+Questions ||--o{ Topics : "possui"
+note right of Topics
+  Uma questão pode ter múltiplos
+  tópicos associados.
+  Um tópico pertence a uma
+  única questão.
+end note
+
+' ============================================
+' LEGENDA
+' ============================================
+legend right
+  |<#LightBlue> PK | Primary Key (Chave Primária) |
+  |<#LightGreen> FK | Foreign Key (Chave Estrangeira) |
+  |<#LightYellow> UNIQUE | Constraint de Unicidade |
+  | * | Campo obrigatório (NOT NULL) |
+  | ||--o{ | Relacionamento 1 para N |
+endlegend
+
+@enduml
+
