@@ -255,7 +255,7 @@ Armazena estatísticas diárias de desempenho dos usuários.
 - **questions (1) ──► (N) alternatives** - Uma questão possui 5 alternativas
 - **questions (1) ──► (N) topics** - Uma questão pode ter múltiplos tópicos
 
-> 📝 **Documentação completa:** Consulte [DICIONARIO_DE_DADOS.md](docs/DICIONARIO_DE_DADOS.md) para informações detalhadas
+> 📝 **Documentação completa:** Consulte [DICIONARIO_DE_DADOS.md](https://github.com/gugucazhiz/ProjetoFinal/blob/main/teste_tela_enem/docs/DICIONARIO_DE_DADOS.md) para informações detalhadas.
 
 ---
 
