@@ -287,11 +287,5 @@ Somos do TADS/EAJ UFRN
 
 ---
 
-## 📝 Licença
-
-Este projeto foi desenvolvido para fins educacionais.
-
----
-
 **Última atualização:** 09/12/2025
 
