@@ -5,7 +5,7 @@ Sistema desktop desenvolvido em JavaFX para prática de questões do ENEM, com a
 ## 📋 Índice
 
 - [Sobre o Projeto](#-sobre-o-projeto)
-- [Tecnologias](#-tecnologias)
+- [Tecnologias](#%EF%B8%8F-tecnologias)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Como Executar](#-como-executar)
 - [Diagramas UML](#-diagramas-uml)
