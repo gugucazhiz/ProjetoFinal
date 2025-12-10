@@ -518,7 +518,7 @@ CREATE TABLE user_stats_daily (
 
 | Data | Versão | Alteração | Autor |
 |------|--------|-----------|-------|
-| 2024 | 1.0 | Criação inicial do dicionário de dados | Sistema |
+| 2025 | 1.0 | Criação inicial do dicionário de dados | Sistema |
 
 ---
 
