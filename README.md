@@ -10,6 +10,7 @@ Sistema desktop desenvolvido em JavaFX para prática de questões do ENEM, com a
 - [Como Executar](#-como-executar)
 - [Diagramas UML](#-diagramas-uml)
 - [Apresentação Pitch](#apresentação-em-formato-de-pitch-pdf-)
+- [Vídeo Com Pricipais Funcionalidades](#vídeo-de-apresentação-das-pricipais-funcionalidades-%EF%B8%8F)
 - [Dicionário de Dados](#%EF%B8%8F-dicionário-de-dados)
 ---
 
@@ -25,7 +26,11 @@ Sistema educacional desenvolvido para auxiliar estudantes na preparação para o
 
 ### Apresentação em formato de pitch PDF 📃
 
-- **Apresentação em formato de pitch PDF** [Veja aqui!](https://github.com/gugucazhiz/ProjetoFinal/blob/main/teste_tela_enem/docs/ArquivosApresentacao/apresentacao-pitch.pdf)
+- **Pitch em formato PDF reunindo as informações essenciais do projeto** [Veja aqui!](https://github.com/gugucazhiz/ProjetoFinal/blob/main/teste_tela_enem/docs/ArquivosApresentacao/apresentacao-pitch.pdf)
+
+### Vídeo de apresentação das pricipais funcionalidades 📽️
+
+- **Visão rápida das principais funcionalidades e como elas funcionam na prática** [Assista aqui!](https://www.youtube.com/watch?v=MqjrqXF6gDE)
 
 ### Disciplinas Suportadas
 
